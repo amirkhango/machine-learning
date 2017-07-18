@@ -22614,13 +22614,12 @@ In my guess by using the Euclidean distance (closer to which segment then it is 
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>Case 1: we assume the change does <strong>not</strong> affect all customers equally:</p>
-<p>In this case, after we change our delivery scheme, we once more do GMM on the train data. It must produce new clusters due to the change (<strong>as we assume the change does not affect all customers equally</strong>). We record the purchase cost of members in the new clusters and compare to the their previous record to figure out the effect of the change.</p>
-<p>Case 2: we assume the change affects all customers equally:</p>
-<p>In this case, the number of clusters will not change, i.e. it always is 2 clusters. We just simply record the purchase cost of members  compare to their previous record to figure out the effect of the change.</p>
-<p><strong>Sorry to the reviewers:</strong>
-You said 'Please state precisely how many A/B tests that you would need to run, and identify the experimental and control groups for each test.'</p>
-<p>Actually, I am a little confused about this question. Any clear guide given? Please.</p>
+<p>The key of conducting the effective A/B is to control any other variable similar (even the same strictly) except the treatmeant variable.
+Here, the treatment variable is our delivery service. In order to find customers reacting positively to our new delivery service, we must run 
+A/B test respectively in the two segments.</p>
+<p>Concretly, we pick out a half of samples from segment 0 and segment 1, respectively. For example, I pick out 50% samples from segment 0. Then I run my new service on these samples and observe their reaction. If their reaction are positive, i.e. their purchase cost is higher than the left 50% samples. Well, we should implement the new service on the whole segment 0 and vice verse.</p>
+<p>The same A/B test is run on the segment 1.</p>
+<p>In this way, we can understand the pure effect of our new service without the interference of other factors.</p>
 
 </div>
 </div>
