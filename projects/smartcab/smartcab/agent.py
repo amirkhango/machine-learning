@@ -23,7 +23,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set any additional class parameters as needed
-        self.tt = self.env.t
+        self.tt = 0
 
     def reset(self, destination=None, testing=False):
         """ The reset function is called at the beginning of each trial.
@@ -39,15 +39,21 @@ class LearningAgent(Agent):
         # Update epsilon using a decay function of your choice
         # Update additional class parameters as needed
         # If 'testing' is True, set epsilon and alpha to 0
-        self.tt += 1
+        #self.tt += 1
+        #print('tt is', self.tt)
+        print('self.env.t is', self.env.t)
+
         if testing is True:
             self.epsilon = 0
             self.alpha = 0
         else:
             #self.epsilon -= self.alpha**(self.tt)
             #self.epsilon -= 0.05
-            self.epsilon -= 2.7182**(-(self.alpha*(self.tt)))
-            self.alpha -= 0.01
+            self.tt += 1.0
+            self.epsilon = math.exp(-(self.alpha*self.tt))
+            #self.alpha = 0.1
+        
+            #self.tt=0
         return
 
     def build_state(self):
@@ -195,7 +201,7 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent,learning=True,epsilon=2, alpha=0.5)
+    agent = env.create_agent(LearningAgent,learning=True,epsilon=1, alpha=0.01)
     
     ##############
     # Follow the driving agent
@@ -217,7 +223,7 @@ def run():
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=10,tolerance=0.5)
+    sim.run(n_test=10,tolerance=0.001)
 
 
 if __name__ == '__main__':
